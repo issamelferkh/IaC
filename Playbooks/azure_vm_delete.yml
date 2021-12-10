@@ -1,0 +1,8 @@
+- name: Delete a resource group including resources it contains
+  hosts: localhost
+  tasks:
+  - name: Delete a resource group including resources it contains
+    azure_rm_resourcegroup:
+      name: Testing
+      force_delete_nonempty: yes
+      state: absent

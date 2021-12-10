@@ -125,12 +125,14 @@ Resource: https://docs.microsoft.com/en-us/azure/developer/ansible/install-on-li
 - `ansible localhost -m azure_rm_resourcegroup -a "name=test1234 location=uksouth state=absent"`
 
 2. Option 2: Write and run an Ansible playbook
+- create Azure Resource Group
+- `ansible localhost -m azure_rm_resourcegroup -a "name=Testing location=uksouth"`
+
+- Create Ansible Playbook file to create new VM on Azure
+- vim `azure_vm.yml`
 
 
-mkdir azure
-cd azure
-vi azure_vm.yml
-ansible localhost -m azure_rm_resourcegroup -a "name=Testing location=uksouth"
+
 ansible-playbook azure_vm.yml
 cat azure_vm.yml
 ssh youtubedemo@IP_ADDRESS
@@ -138,6 +140,10 @@ ssh youtubedemo@IP_ADDRESS
 
 ## Create Containers with Ansible on Azure
 
+https://docs.ansible.com/ansible/latest/collections/azure/azcollection/azure_rm_containerinstance_module.html
+https://docs.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app#code-try-5
+https://www.youtube.com/watch?v=OkPBtWzdfSk
+https://www.youtube.com/watch?v=nzyLC3ERPt8 +++ 
 
 
 
@@ -249,3 +255,9 @@ docker run -d
   phpmyadmin/phpmyadmin
 ```
 https://hub.docker.com/r/phpmyadmin/phpmyadmin/
+
+
+if (NBR != 125)
+
+
+if (!NBR)
