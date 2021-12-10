@@ -140,6 +140,10 @@ ssh youtubedemo@IP_ADDRESS
 
 ## Create Containers with Ansible on Azure
 
+- Automating WordPress with Ansible on Azure: https://thinkmobiles.com/posts/1667/
+
+
+
 https://docs.ansible.com/ansible/latest/collections/azure/azcollection/azure_rm_containerinstance_module.html
 https://docs.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app#code-try-5
 https://www.youtube.com/watch?v=OkPBtWzdfSk
