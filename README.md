@@ -139,6 +139,10 @@ ssh youtubedemo@IP_ADDRESS
 
 
 ## Create Containers with Ansible on Azure
+- create 3 docker files on azure
+- create it using Ansible
+
+
 
 - Automating WordPress with Ansible on Azure: https://thinkmobiles.com/posts/1667/
 
@@ -149,6 +153,11 @@ https://docs.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app#
 https://www.youtube.com/watch?v=OkPBtWzdfSk
 https://www.youtube.com/watch?v=nzyLC3ERPt8 +++ 
 
+- if choose container registry:
+  - https://www.youtube.com/watch?v=1gEMiFil4q4
+  - https://docs.ansible.com/ansible/latest/collections/azure/azcollection/azure_rm_containerinstance_module.html
+  - https://github.com/Azure-Samples/aci-helloworld
+  - https://docs.ansible.com/ansible/latest/collections/azure/azcollection/azure_rm_containerregistry_module.html
 
 
 
