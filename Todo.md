@@ -1,4 +1,5 @@
 # Cloud-1 Todo
+
 - [x] Setup Ansible on VM on Azure
   - [x] 1. Install AnsibleMaster VM on Azure
   - [x] 2. Install Azure CLI on Linux
