@@ -1,0 +1,3 @@
+- Subscription: Azure for Students
+- Resource group: AnsibleResourceGroup
+- Region: France Central

@@ -39,7 +39,7 @@ az vm create \
 - `sudo apt-get update`
 - `sudo apt-get install azure-cli`
 
-### [x] 3. Setup Ansible on an Azure VM - Connet to az - test fisrt playbook
+### [x] 3. Setup Ansible on AnsibleMaster VM - Connet to az - test fisrt playbook
 - Resource: https://docs.microsoft.com/en-us/azure/developer/ansible/install-on-linux-vm?tabs=azure-cli
 
 1. Update all packages that have available updates
@@ -52,17 +52,30 @@ az vm create \
 - `sudo pip3 install --upgrade pip`
 
 4. Install Ansible.
-sudo apt install ansible
+- `sudo apt install ansible`
 
 5. Install Ansible azure_rm module for interacting with Azure.
 - `pip3 install ansible[azure]`
-
-
 
 ### [x] 4. Create an Azure service principal for Ansible
 - Resource: https://docs.microsoft.com/en-us/azure/developer/ansible/create-ansible-service-principal?tabs=azure-cli
 1. login to az using browser
 - `az login`
+  - output
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "6c18d021-5aa7-47b1-9864-56bee5390cc9",
+    "id": "6457318c-3043-4126-9d39-f782e3503899",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Azure for Students",
+    "state": "Enabled",
+    "tenantId": "6c18d021-5aa7-47b1-9864-56bee5390cc9",
+    "user": {
+      "name": "issam.elferkh@gmail.com",
+      "type": "user"
+    }
+  }
 
 2. Create an Azure service principal
 - ` az ad sp create-for-rbac --name ansible `
@@ -71,7 +84,7 @@ sudo apt install ansible
     "appId": "2694c38f-6fd6-4532-be62-da4eb14ce1b3",
     "displayName": "ansible",
     "name": "2694c38f-6fd6-4532-be62-da4eb14ce1b3",
-    "password": "9JKZ7GJp~q.qL4jHqI7aEUYVDhqdnOHP61",
+    "password": "jeuHMuWEVjRwY~oCodHBXmX49~qX8mVyQW",
     "tenant": "6c18d021-5aa7-47b1-9864-56bee5390cc9"
   }
 
@@ -96,7 +109,17 @@ sudo apt install ansible
 
 4. Get Azure service principal information
 - `az account show --query '{tenantId:tenantId,subscriptionid:id}';`
+  - output
+  {
+    "subscriptionid": "6457318c-3043-4126-9d39-f782e3503899",
+    "tenantId": "6c18d021-5aa7-47b1-9864-56bee5390cc9"
+  }
+
 - `az ad sp list --display-name ansible --query '{clientId:[0].appId}'`
+  - output
+  {
+    "clientId": "2694c38f-6fd6-4532-be62-da4eb14ce1b3"
+  }
 
 ### [x] 5. Create Azure credentials
 - Resource: https://docs.microsoft.com/en-us/azure/developer/ansible/install-on-linux-vm?tabs=azure-powershell%2Cansible%2Cazure-cli#create-azure-credentials
@@ -112,7 +135,13 @@ sudo apt install ansible
   tenant=<security-principal-tenant>
 ```
 
-### [ ] 6. Test Ansible installation
+[default]
+subscription_id=6457318c-3043-4126-9d39-f782e3503899
+client_id=2694c38f-6fd6-4532-be62-da4eb14ce1b3
+secret=jeuHMuWEVjRwY~oCodHBXmX49~qX8mVyQW
+tenant=6c18d021-5aa7-47b1-9864-56bee5390cc9
+
+### [x] 6. Test Ansible installation
 Resource: https://docs.microsoft.com/en-us/azure/developer/ansible/install-on-linux-vm?tabs=azure-cli#test-ansible-installation
 
 1. Option 1: Use an ad-hoc ansible command
@@ -128,10 +157,4 @@ Resource: https://docs.microsoft.com/en-us/azure/developer/ansible/install-on-li
 
 - Create Ansible Playbook file to create new VM on Azure
 - vim `azure_vm.yml`
-
-
-
-ansible-playbook azure_vm.yml
-cat azure_vm.yml
-ssh youtubedemo@IP_ADDRESS
 
