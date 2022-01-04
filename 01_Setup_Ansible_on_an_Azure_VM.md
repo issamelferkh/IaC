@@ -19,7 +19,7 @@ az vm create \
 - `az vm show -d -g QuickstartAnsible-rg -n QuickstartAnsible-vm --query publicIps -o tsv`
 
 4. Connect to your virtual machine via SSH
-- `ssh -i AnsibleMaster_key.pem issam@104.40.216.202`
+- `ssh -i AnsibleMasterKey.pem issam@20.199.99.13`
 
 ### [x] 2. Install Azure CLI on Linux
 - Resource: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
