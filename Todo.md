@@ -1,6 +1,23 @@
 # Cloud-1 Todo
 
 ## 1. Setup Ansible on VM on Azure
+
+## WordPress Resource Groupe
+### Create WordPressResourceGroup
+
+### Create wordpress App
+
+
+
+
+
+
+
+
+
+
+
+
 ## 2. Deploy WP 
 
 
@@ -27,3 +44,6 @@ https://www.youtube.com/watch?v=OkPBtWzdfSk
 
 - +++ Use persistent storage in Docker Compose +++
   - https://docs.microsoft.com/en-us/azure/app-service/configure-custom-container?pivots=container-linux#use-persistent-storage-in-docker-compose
+
+
+- https://semaphoreci.com/community/tutorials/dockerizing-a-php-application#dockerfiles

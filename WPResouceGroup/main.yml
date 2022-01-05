@@ -1,0 +1,5 @@
+- name: Automatically Deploy Wordpress Website
+  hosts: localhost
+  tasks:
+
+  - name
