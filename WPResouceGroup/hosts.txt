@@ -1,0 +1,2 @@
+[docker]
+20.127.138.20   ansible_ssh_user=issam    ansible_ssh_pass=issam123!

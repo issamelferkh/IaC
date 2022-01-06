@@ -8,16 +8,6 @@
 ### Create wordpress App
 
 
-
-
-
-
-
-
-
-
-
-
 ## 2. Deploy WP 
 
 
@@ -47,3 +37,42 @@ https://www.youtube.com/watch?v=OkPBtWzdfSk
 
 
 - https://semaphoreci.com/community/tutorials/dockerizing-a-php-application#dockerfiles
+
+# ##########################################################################
+- Create clean playbook 
+  - [x] Create resource group
+  - [x] Create virtual network
+  - [x] Add subnet
+  - [x] Create public IP address
+  - [x] Public IP of VM
+  - [x] Create Network Security Group that allows SSH
+  - [x] Create virtual network interface card
+  - [x] Create VM
+  - [x] Update VM
+  - [x] Install Docker -> docker.yml
+  - [x] Install python -> docker.yml
+
+- look at ansible tree !
+
+  - wordpress containers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Create clean main playbook 
+
+
+

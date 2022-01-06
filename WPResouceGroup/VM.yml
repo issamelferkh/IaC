@@ -1,36 +1,42 @@
 # https://docs.microsoft.com/en-us/azure/developer/ansible/vm-configure?tabs=ansible
 
-- name: Create Azure VM
+- name: Automated Deployment of WordPress WebSite
   hosts: localhost
   tasks:
-  - name: Create resource group
+
+  - name: Create Resource Group named WordPressResourceGroup
     azure_rm_resourcegroup:
-      name: myResourceGroup
+      name: "{{ WordPressResourceGroupName }}"
       location: eastus
-  - name: Create virtual network
+
+  - name: Create Virtual Network
     azure_rm_virtualnetwork:
-      resource_group: myResourceGroup
-      name: myVnet
+      resource_group: "{{ WordPressResourceGroupName }}"
+      name: WP_Vnet
       address_prefixes: "10.0.0.0/16"
+
   - name: Add subnet
     azure_rm_subnet:
-      resource_group: myResourceGroup
-      name: mySubnet
+      resource_group: "{{ WordPressResourceGroupName }}"
+      name: WP_Subnet
       address_prefix: "10.0.1.0/24"
-      virtual_network: myVnet
-  - name: Create public IP address
+      virtual_network: WP_Vnet
+
+  - name: Create Public IP address
     azure_rm_publicipaddress:
-      resource_group: myResourceGroup
+      resource_group: "{{ WordPressResourceGroupName }}"
       allocation_method: Static
-      name: myPublicIP
+      name: WP_PublicIP
     register: output_ip_address
+
   - name: Public IP of VM
     debug:
       msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+  
   - name: Create Network Security Group that allows SSH
     azure_rm_securitygroup:
-      resource_group: myResourceGroup
-      name: myNetworkSecurityGroup
+      resource_group: "{{ WordPressResourceGroupName }}"
+      name: WP_NetworkSecurityGroup
       rules:
         - name: SSH
           protocol: Tcp
@@ -38,31 +44,35 @@
           access: Allow
           priority: 1001
           direction: Inbound
-  - name: Create virtual network interface card
+
+  - name: Create Virtual Network Interface Card (NIC)
     azure_rm_networkinterface:
-      resource_group: myResourceGroup
-      name: myNIC
-      virtual_network: myVnet
-      subnet: mySubnet
-      public_ip_name: myPublicIP
-      security_group: myNetworkSecurityGroup
-  - name: Create VM
+      resource_group: "{{ WordPressResourceGroupName }}"
+      name: WP_NIC
+      virtual_network: WP_Vnet
+      subnet: WP_Subnet
+      public_ip_name: WP_PublicIP
+      security_group: WP_NetworkSecurityGroup
+
+  - name: Create Virtual Machine (VM)
     azure_rm_virtualmachine:
-      resource_group: myResourceGroup
-      name: myVM
+      resource_group: "{{ WordPressResourceGroupName }}"
+      name: WP_VM
       vm_size: Standard_DS1_v2
-      admin_username: issam
-      # admin_password: issam123!
-      ssh_password_enabled: false
-      ssh_public_keys:
-      # Run the followinf cmd
-        # ssh-keygen -m PEM -t rsa -b 4096
-      # Copy the content public key
-        - path: /home/issam/.ssh/authorized_keys
-          key_date: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDPSJZ5ddv8x0AhqYdG0XlWvlO/i75W/gk0IxMV1juTLvcqvRbUKLC9+GalqPn0wEDx7pmfgmXdpBF52uFfJf697PWKs9KAFo9Tiyg4GwdV69EJewImxxHW3Xz2XSNep86uYlC1GWC0jP4fMD3XUcX5eHwbQVQ8ZTA34PtDpFHDylHtPlw6fEoBklStqjVOBuX12FOeKF9wqLL1Nuy73j6vEJjHollfMZBQoEdtdIAW6GKowCBiWCXcUmuWa/qx5er5hquLbd6AOuOVDcvu40+5OwnUnOM+x+JuBDEa5ZXk+BUVn3mKmYgZpVV6D7kmdTtvJmLVkbD9FsCL2H4h5MZiliDUXibXDVYCz6ciInzsNpVo9tumBmUhzDGyTCXhL/97fv5/gwvk7DQvxop9e22998Vg3Yl1rQcTv1Za1shyToFInF7hECr5uEV+XiP//L6YKo2K2fHOlLM674Fti2XQU4R95B+d0SolfTSup0QrBl0Hp2aXDVY2K3sol5Efsw33fmSJMCxZOd6FC3n2cmXGCU1uZFM+IOFu7/YPvZfE/igkziFQXMoj7dMvP1GJzF+tXm4GbNXWuGyVOK9AmrpDDogDeSLhvzwU7jOkDqJudlzaUNc6+UES7rPZOiIJFz7OFxTQB1gRwIDySt35aQxor7teEjDn8pWqjnkMEl5Smw=="
-      network_interfaces: myNIC
+      admin_username: "{{ admin_username }}"
+      admin_password: "{{ admin_password }}"
+      ssh_password_enabled: true
+      network_interfaces: WP_NIC
       image:
-        offer: CentOS
-        publisher: OpenLogic
-        sku: '7.5'
+        offer: 0001-com-ubuntu-server-focal
+        publisher: canonical
+        sku: '20_04-lts'
         version: latest
+  - name: Update VM
+    azure_rm_virtualmachine:
+      resource_group: "{{ WordPressResourceGroupName }}"
+      name: WP_VM
+      vm_size: Standard_DS1_v2
+      admin_username: "{{ admin_username }}"
+      admin_password: "{{ admin_password }}"
+      started: yes
