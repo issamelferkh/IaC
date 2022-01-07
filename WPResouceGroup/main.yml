@@ -67,12 +67,3 @@
         publisher: canonical
         sku: '20_04-lts'
         version: latest
-
-  # - name: Update VM
-  #   azure_rm_virtualmachine:
-  #     resource_group: "{{ WordPressResourceGroupName }}"
-  #     name: WPVM
-  #     vm_size: Standard_DS1_v2
-  #     admin_username: "{{ admin_username }}"
-  #     admin_password: "{{ admin_password }}"
-  #     started: yes

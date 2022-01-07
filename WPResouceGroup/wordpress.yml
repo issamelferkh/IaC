@@ -1,0 +1,36 @@
+# https://markontech.com/ansible/deploy-wordpress-on-docker-using-ansible/
+---
+- hosts: [docker]
+  become: yes
+  vars:
+    db_volume: mariadb
+    wordpress: wordpress
+  tasks:
+    - name: Deploy MariaDB server
+      docker_container:
+        image: mariadb
+        name: mariadb
+        volumes:
+          - "{{db_volume}}:/var/lib/mysql"
+        env:
+          MYSQL_ROOT_PASSWORD: somerootpassword
+          MYSQL_PASSWORD: somemysqlpassword
+          MYSQL_DATABASE: db
+          MYSQL_USER: mysqluser
+
+    - name: Deploy WordPress
+      docker_container:
+        image: wordpress
+        name: wordpress
+        restart_policy: always
+        ports:
+          - "8080:80"
+        links:
+          - "{{db_volume}}:/var/lib/mysql"
+        volumes:
+          - "{{wordpress}}:/var/www/html"
+        env:
+          MYSQL_PASSWORD: somemysqlpassword
+          MYSQL_DATABASE: db
+          MYSQL_USER: mysqluser
+          MYSQL_HOST: mariadb
