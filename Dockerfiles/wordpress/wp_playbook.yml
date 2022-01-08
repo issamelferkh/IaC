@@ -1,0 +1,71 @@
+# https://www.redhat.com/sysadmin/container-images-ansible
+---
+- hosts: [docker]
+  gather_facts: no
+  become: yes
+  tasks:
+
+  # - name: Copy MySQL Dockerfile From AnsibleMaster to WPVM
+  #   copy: src=/home/issam/playbooks/mysql/Dockerfile dest=/tmp/mysql/Dockerfile
+
+  # - name: Deploy MySQL DB
+  #   docker_container:
+  #     image: mysql
+  #     name: mysql
+  #     volumes:
+  #       - "mysql:/var/lib/mysql"
+  #     env:
+  #       MYSQL_ROOT_PASSWORD: somerootpassword
+  #       MYSQL_PASSWORD: somemysqlpassword
+  #       MYSQL_DATABASE: db
+  #       MYSQL_USER: mysqluser
+
+  # - name: Log into DockerHub
+  #   docker_login:
+  #     username: issamelferkh
+  #     password: SNV@issam123
+  #     email: issam.elferkh@gmail.com
+
+  # - name: Copy Wordpress Dockerfile From AnsibleMaster to WPVM
+  #   copy: src=/home/issam/playbooks/wordpress/Dockerfile dest=/tmp/wordpress/Dockerfile
+
+  # - name: Build Wordpress Image from Dockerfile
+  #   docker_image:
+  #     name: mywordpress:v1.0
+  #     build:
+  #       pull: yes
+  #       path: /tmp/wordpress/
+  #     state: present
+  #     source: build
+
+  # - name: Tag and push to docker hub
+  #   docker_image:
+  #     name: mywordpress:v1.0
+  #     repository: issamelferkh/mywordpress:v1.0
+  #     push: yes
+  #     source: local
+
+  - name: Deploy Wordpress Container
+    docker_container:
+      image: issamelferkh/mywordpress:v1.0
+      name: mywordpress
+      state: started
+      restart_policy: always
+      exposed_ports:
+      - "80"
+      ports:
+      - "8081:80"
+      volumes:
+        - "www:/var/www/html"
+
+
+
+  #     env:
+  #       MYSQL_PASSWORD: somemysqlpassword
+  #       MYSQL_DATABASE: db
+  #       MYSQL_USER: mysqluser
+  #       MYSQL_HOST: mysql
+        # WORDPRESS_DB_HOST: mysql
+        # WORDPRESS_DB_USER: exampleuser
+        # WORDPRESS_DB_PASSWORD: Examplepass123!
+        # WORDPRESS_DB_NAME: db

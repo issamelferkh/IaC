@@ -1,0 +1,11 @@
+---
+- hosts: [docker]
+  become: yes
+  tasks:
+  - name: Copy Dockerfile
+    copy: src=Dockerfile dest=/tmp/
+  - name: Build image from Dockerfile
+    docker_image:
+      path: /tmp/
+      name: imagename
+      tag: v1

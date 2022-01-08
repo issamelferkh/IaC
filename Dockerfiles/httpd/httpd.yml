@@ -1,0 +1,24 @@
+# https://dev.to/niteshthapliyal/apache-webserver-configuration-in-docker-using-ansible-1dde
+# Open port ->  add Networkin Role -> Allow 8888 On azure VM
+
+---
+- hosts: [docker]
+  become: yes
+  tasks:
+    # - name: Download HTTPd Docker Image
+    #   docker_image:
+    #     name: httpd
+    #     tag: latest
+    #     source: pull
+    # - copy:
+    #     src: "web.html"
+    #     dest: "/usr/local/apache2/htdocs/."
+    - name: Launching HTTPd container
+      docker_container:
+        name: httpd
+        image: httpd
+        state: started
+        exposed_ports:
+        - "80"
+        ports:
+        - "8888:80"
