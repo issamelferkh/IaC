@@ -1,22 +1,23 @@
 # https://markontech.com/ansible/deploy-wordpress-on-docker-using-ansible/
 ---
 - hosts: [docker]
+  gather_facts: no
   become: yes
-  vars:
-    db_volume: mariadb
-    wordpress: wordpress
+  # vars:
+  #   db_volume: mariadb
+  #   wordpress: wordpress
   tasks:
     - name: Deploy MariaDB server
       docker_container:
         image: mariadb
         name: mariadb
         volumes:
-          - "{{db_volume}}:/var/lib/mysql"
+          - "mariadb:/var/lib/mysql"
         env:
-          MYSQL_ROOT_PASSWORD: somerootpassword
-          MYSQL_PASSWORD: somemysqlpassword
-          MYSQL_DATABASE: db
-          MYSQL_USER: mysqluser
+          MYSQL_ROOT_PASSWORD: issam123!
+          MYSQL_PASSWORD: issam123!
+          MYSQL_DATABASE: wordpressdb
+          MYSQL_USER: issam
 
     - name: Deploy WordPress
       docker_container:
@@ -26,15 +27,12 @@
         ports:
           - "8080:80"
         links:
-          - "{{db_volume}}:/docker-entrypoint-initdb.d"
+          - "mariadb:/docker-entrypoint-initdb.d"
         volumes:
-          - "{{wordpress}}:/var/www/html"
-        # env:
-        #   # MYSQL_PASSWORD: somemysqlpassword
-        #   # MYSQL_DATABASE: db
-        #   # MYSQL_USER: mysqluser
-        #   # MYSQL_HOST: mariadb
-        #   WORDPRESS_DB_HOST: mariadb
-        #   WORDPRESS_DB_USER: exampleuser
-        #   WORDPRESS_DB_PASSWORD: Examplepass123!
-        #   WORDPRESS_DB_NAME: db
+          - "wordpress:/var/www/html"
+        env:
+          WORDPRESS_DB_HOST: mariadb
+          WORDPRESS_DB_USER: issam
+          WORDPRESS_DB_PASSWORD: issam123!
+          WORDPRESS_DB_NAME: wordpressdb
+

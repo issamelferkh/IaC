@@ -56,23 +56,20 @@ https://www.youtube.com/watch?v=OkPBtWzdfSk
 
   - wordpress containers
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - Create clean main playbook 
 
 
+### Dimchane 09/01/2022
+- Build WP Docker image from existing WP Using Dockerfile
 
+- Push it to docker Hub
+
+- Deploy WP container 
+
+
+
+
+
+sudo docker rmi issamelferkh/mywordpress:v1.1
+sudo docker rmi mywordpress:v1.1
+sudo docker rmi wordpress

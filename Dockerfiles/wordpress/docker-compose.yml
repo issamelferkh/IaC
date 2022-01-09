@@ -2,18 +2,18 @@ version: '3.1'
 
 services:
 
-  webserver:
-    build: .
+  wordpress:
+    image: wordpress
     restart: always
     ports:
-      - 80:80
+      - 8080:80
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
     volumes:
-      - ./html:/var/www/html
+      - ./wordpress:/var/www/html
 
   db:
     image: mysql:5.7
@@ -28,5 +28,6 @@ services:
       - ./shema:/docker-entrypoint-initdb.d
 
 volumes:
-  html:
+  wordpress:
   db:
+
