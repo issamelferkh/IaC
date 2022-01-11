@@ -73,3 +73,13 @@ https://www.youtube.com/watch?v=OkPBtWzdfSk
 sudo docker rmi issamelferkh/mywordpress:v1.1
 sudo docker rmi mywordpress:v1.1
 sudo docker rmi wordpress
+
+
+
+- playbook.yml
+- srcs
+  - docker-compose.yml
+  - requirements
+    - nginx
+    - wordpress
+    - mariadb
