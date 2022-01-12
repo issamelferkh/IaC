@@ -12,6 +12,8 @@
 
 
 
+
+
 - [x] 1. Setup Ansible on VM on Azure
   - [x] 1. Install AnsibleMaster VM on Azure
   - [x] 2. Install Azure CLI on Linux
