@@ -12,7 +12,7 @@
 
     - name: Install docker
       apt:
-        name: python3-pip, docker.io
+        name: python3-pip, docker.io, docker-compose
         state: present
 
     - name: Start docker service
