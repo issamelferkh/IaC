@@ -91,3 +91,9 @@ https://www.youtube.com/watch?v=OkPBtWzdfSk
 
 
 52.168.80.224
+
+
+## Issues
+- Issue ansible-key-vault: accept all passwords !
+- Issue @IP of VM in wordpress
+  - can't upload CSS ...
