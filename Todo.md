@@ -60,28 +60,31 @@ https://www.youtube.com/watch?v=OkPBtWzdfSk
 
 - Create clean main playbook 
 
+# ##########################################################################
 
-### Dimchane 09/01/2022
-- Build WP Docker image from existing WP Using Dockerfile
+## Correction
 
-- Push it to docker Hub
+### Todo
+- vm_playbook
+  - Creat WP Resource Groupe
+  - Create WPVM
+    - Add port rules
 
-- Deploy WP container 
-
-
-
-
-
-sudo docker rmi issamelferkh/mywordpress:v1.1
-sudo docker rmi mywordpress:v1.1
-sudo docker rmi wordpress
+- wp_playbook
+  - Create hosts in WPVM
+  - Install Docker, python and update
 
 
+- deploy docker !!!
 
-- playbook.yml
-- srcs
-  - docker-compose.yml
-  - requirements
-    - nginx
-    - wordpress
-    - mariadb
+
+
+### Structure
+- playbook
+/home/issam/playbooks/hosts
+  - hosts
+  - vim secret.yml
+  - vm_playbook.yml
+
+
+20.127.25.229

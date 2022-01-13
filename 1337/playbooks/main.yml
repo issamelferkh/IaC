@@ -1,0 +1,9 @@
+---
+- hosts: [WPVM]
+  become: yes
+  tasks:
+    - name: Clone a repo with separate git directory
+      ansible.builtin.git:
+        repo: https://github.com/issamelferkh/wordpress.git
+        dest: /home/issam/wordpress
+        # separate_git_dir: /src/ansible-examples.git

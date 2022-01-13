@@ -1,0 +1,136 @@
+version: "3.5"
+services:
+# WebServer
+  nginx:
+    build: ./nginx/
+    container_name: my_nginx
+    ports:
+      - 80:80
+    networks:
+      - backend
+    volumes:
+      - wp:/www/wordpress
+    depends_on:
+      - wordpress
+
+# PHP
+  # php:
+  #   build: ./php/
+  #   container_name: my_php
+  #   expose:
+  #     - 9000
+  #   links:
+  #     - mysql
+  #   volumes_from:
+  #     - app-data
+
+  wordpress:
+    build: ./wordpress/
+    container_name: wordpress
+    ports:
+      - "9000:9000"
+    networks:
+      - backend
+    volumes:
+      - wp:/www/wordpress
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+
+# # Separated Container to hold App Data
+#   app-data:
+#     image: php:7.0-fpm
+#     container_name: my_app-data
+#     volumes:
+#       - ./www/html/:/var/www/html/
+#     command: "true"
+
+  mariadb:
+    build: ./mariadb/
+    image: mariadb:v1.0
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - backend
+    env_file:
+      - .env
+
+  adminer:
+    build: ./adminer/
+    container_name: adminer
+    ports:
+      - "5000:5000"
+    networks:
+      - backend
+# # MySQL Container
+#   mysql:
+#     image: mysql:5.7
+#     container_name: my_mysql 
+#     volumes:
+#       - db:/var/lib/mysql 
+#     environment:  
+#       MYSQL_ROOT_PASSWORD: issam123!  
+#       MYSQL_DATABASE: mydb  
+#       MYSQL_USER: issam  
+#       MYSQL_PASSWORD: issam123!  
+
+# MySQL data container
+  # mysql-data:    
+  #   image: mysql:5.7  
+  #   container_name: my_mysql-data
+  #   volumes:  
+  #     - /var/lib/mysql  
+  #   command: "true" 
+
+
+  # mariadb:
+  #   build: ./mariadb/
+  #   container_name: mariadb
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - /var/lib/mysql
+  #   env_file:
+  #     - .env
+
+
+
+# For Test
+  # mysql:
+  #   build: ./mariadb
+  #   container_name: my_mariadb
+  #   # image: mariadb
+  #   # networks:
+  #   #   - inception-network
+  #   volumes:
+  #     - /var/lib/mysql
+  #   # depends_on:
+  #   #   - wordpress
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: issam123!  
+  #     MYSQL_DATABASE: mydb  
+  #     MYSQL_USER: issam  
+  #     MYSQL_PASSWORD: issam123! 
+  #   restart: always
+
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/issam/data/DB
+      o: bind
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/issam/data/WordPress
+      o: bind
+
+networks:
+  backend:
