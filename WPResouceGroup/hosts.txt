@@ -1,2 +1,0 @@
-[WPVM]
-52.168.80.224   ansible_ssh_user=issam    ansible_ssh_pass=issam123!
